@@ -8,7 +8,7 @@ META_URL = 'https://opendata.transport.nsw.gov.au/dataset/train-station-entries-
 META_LOG = "modified.log"
 LOGIN_URL = 'https://opendata.transport.nsw.gov.au/user/login'
 LOGIN_USER = 'sweetstar'
-LOGIN_PWD = '****'
+LOGIN_PWD = '****' #regist a free account from https://opendata.transport.nsw.gov.au/
 
 def down_csv(login_url,user,pwd):
         """check metadata, login website and download the csv.
@@ -98,6 +98,8 @@ def processdata():
         
         #MonthYear to_date?
         traindf = traindf.pivot(index=['MonthYear','Station'],columns='Entry_Exit',values='Trip').reset_index()
+#        traindf["Date"] = pd.to_datetime(traindf["MonthYear"] ,format="%Y-%m")
+#        traindf["Date"] = traindf["Date"].apply(lambda x: x.strftime("%b-%Y"))
 
         #print(final.head())
         return traindf,stationdf
